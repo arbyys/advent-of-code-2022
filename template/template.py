@@ -5,6 +5,6 @@ data = data.splitlines()
 #data = [*map(int, data)]
 
 # with open("template/input.txt") as file:
-#    data = [line.rstrip() for line in file]
+#   data = [line.rstrip("\n") for line in file]
 
 print(data)
