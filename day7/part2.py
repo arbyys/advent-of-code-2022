@@ -4,7 +4,7 @@ data = get_data(day=1, year=2022)
 data = data.splitlines()
 #data = [*map(int, data)]
 
-with open("template/input.txt") as file:
-    data = [line.rstrip("\n") for line in file]
+# with open("template/input.txt") as file:
+#   data = [line.rstrip("\n") for line in file]
 
 print(data)
