@@ -1,6 +1,6 @@
-from aocd import get_data
-
 from enum import Enum
+
+from aocd import get_data
 
 
 class Direction(Enum):

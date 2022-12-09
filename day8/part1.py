@@ -1,6 +1,6 @@
-from aocd import get_data
-
 from enum import Enum
+
+from aocd import get_data
 
 
 class Direction(Enum):
@@ -24,24 +24,24 @@ def goInDirection(start_i, start_j, direction: Direction):
 
     match direction:
         case Direction.TOP:
-            while(current_i > 0):
+            while (current_i > 0):
                 current_i -= 1
-                if(data[current_i][current_j] >= startElement):
+                if (data[current_i][current_j] >= startElement):
                     return False
         case Direction.RIGHT:
-            while(current_j < len(data[0])-1):
+            while (current_j < len(data[0])-1):
                 current_j += 1
-                if(data[current_i][current_j] >= startElement):
+                if (data[current_i][current_j] >= startElement):
                     return False
         case Direction.BOTTOM:
-            while(current_i < len(data)-1):
+            while (current_i < len(data)-1):
                 current_i += 1
-                if(data[current_i][current_j] >= startElement):
+                if (data[current_i][current_j] >= startElement):
                     return False
         case Direction.LEFT:
-            while(current_j > 0):
+            while (current_j > 0):
                 current_j -= 1
-                if(data[current_i][current_j] >= startElement):
+                if (data[current_i][current_j] >= startElement):
                     return False
     return True
 
@@ -55,7 +55,7 @@ for i, row in enumerate(data):
             continue
 
         for direction in Direction:
-            if(goInDirection(i, j, direction)):
+            if (goInDirection(i, j, direction)):
                 total += 1
                 break
 
