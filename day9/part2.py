@@ -3,6 +3,27 @@ from aocd import get_data
 data = get_data(day=9, year=2022)
 data = data.splitlines()
 
+with open("template/input.txt") as file:
+    data = [line.rstrip("\n") for line in file]
+
+
+def vis(i, j):
+    for x in range(6):
+        for y in range(6):
+            found = False
+            for z in range(len(i)):
+                if (i[z] == x and j[z] == y):
+                    if (z == 0):
+                        print("H", end="")
+                    else:
+                        print(z, end="")
+                    found = True
+                    break
+            if (not found):
+                print(".", end="")
+        print()
+    print("\n\n")
+
 
 def isAdjacent(head_i, head_j, tail_i, tail_j):
     i = abs(head_i - tail_i)
@@ -52,29 +73,36 @@ def getCurrentAdjacent(head_i, head_j, tail_i, tail_j):
         return "UL"
 
 
-head_i = 0
-head_j = 0
+i = [5] * 10
+j = [0] * 10
 
-tail_i = 0
-tail_j = 0
 
-visited = [[tail_i, tail_j]]
+visited = [[i[9], j[9]]]
 lastDirection = ""
 
 for instruction in data:
     direction, length = instruction.split(" ")
-    for i in range(int(length)):
-        head_i, head_j = move(head_i, head_j, direction)
-        if (not isAdjacent(head_i, head_j, tail_i, tail_j)):
-            tail_i, tail_j = follow(tail_i, tail_j, lastDirection)
-            if ([tail_i, tail_j] not in visited):
-                visited.append([tail_i, tail_j])
-            if (isAdjacent(head_i, head_j, tail_i, tail_j)):
-                lastDirection = getCurrentAdjacent(
-                    head_i, head_j, tail_i, tail_j)
+    for current in range(int(length)):
+        i[0], j[0] = move(i[0], j[0], direction)
+        for index in range(1, 10):
+            if (i[index] == i[index-1] and j[index] == j[index-1]):
+                continue
+            if (not isAdjacent(i[index-1], j[index-1], i[index], j[index])):
+                i[index], j[index] = follow(i[index], j[index], lastDirection)
+                if (index == 9 and [i[index], j[index]] not in visited):
+                    visited.append([i[index], j[index]])
 
-        else:
-            lastDirection = getCurrentAdjacent(head_i, head_j, tail_i, tail_j)
+            else:
+                if (index == 1):
+                    lastDirection = getCurrentAdjacent(
+                        i[index-1], j[index-1], i[index], j[index])
+                    print("1changing to: ", lastDirection)
+        if (index == 1 and isAdjacent(i[index-1], j[index-1], i[index], j[index])):
+            lastDirection = getCurrentAdjacent(
+                i[index-1], j[index-1], i[index], j[index])
+            print("2changing to: ", lastDirection)
+        vis(i, j)
 
 
+print(visited)
 print(len(visited))
